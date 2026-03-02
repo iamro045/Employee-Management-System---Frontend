@@ -9,6 +9,8 @@ import AddEmployee from "./pages/AddEmployee";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import EditEmployee from "./pages/EditEmployee";
+import ChangePassword from "./pages/ChangePassword";
+import EditProfile from "./pages/EditProfile"; // 🔥 ADD THIS
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/employees" element={<Employees />} />
         <Route path="/add-employee" element={<AddEmployee />} />
         <Route path="/profile" element={<Profile />} />
+<Route path="/edit-profile" element={<EditProfile />} />
+<Route path="/change-password" element={<ChangePassword />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={2000} />
     </BrowserRouter>
