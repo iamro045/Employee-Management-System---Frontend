@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../services/api";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -21,8 +22,8 @@ export default function Login() {
 
       navigate("/dashboard");
     } catch (err) {
-      alert("Invalid credentials");
-    }
+  toast.error("Invalid credentials ❌");
+}
   };
 
   return (
