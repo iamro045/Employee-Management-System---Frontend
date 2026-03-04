@@ -20,7 +20,7 @@ export default function Dashboard() {
 
   const fetchEmployees = async () => {
     try {
-      const res = await API.get("/employees");
+      const res = await API.get("/api/employees");
       setEmployees(res.data);
     } catch {
       toast.error("Error loading dashboard");
