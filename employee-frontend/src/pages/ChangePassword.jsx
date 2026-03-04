@@ -8,7 +8,7 @@ export default function ChangePassword() {
 
   const handleChangePassword = async () => {
     try {
-      await API.put("/auth/change-password", {
+      await API.put("/api/auth/change-password", {
         oldPassword,
         newPassword,
       });
