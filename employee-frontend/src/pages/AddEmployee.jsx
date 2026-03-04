@@ -29,7 +29,7 @@ export default function AddEmployee() {
     try {
       setLoading(true);
 
-      await API.post("/employees", {
+      await API.post("/api/employees", {
         name,
         department,
         salary: Number(salary),
