@@ -19,7 +19,7 @@ export default function EditEmployee() {
 
   const fetchEmployee = async () => {
     try {
-      const res = await API.get("/employees");
+      const res = await API.get("/api/employees");
       const found = res.data.find((emp) => emp._id === id);
       if (found) setEmployee(found);
     } catch (err) {
@@ -29,7 +29,7 @@ export default function EditEmployee() {
 
   const handleUpdate = async () => {
     try {
-      await API.put(`/employees/${id}`, employee);
+      await API.put(`/api/employees/${id}`, employee);
 
       toast.success("Employee Updated ✅");
 
