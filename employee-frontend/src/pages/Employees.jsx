@@ -20,7 +20,7 @@ export default function Employees() {
   const fetchEmployees = async () => {
     try {
       setLoading(true);
-      const res = await API.get("/employees");
+      const res = await API.get("/api/employees"); // FIXED
       setEmployees(res.data);
     } catch (err) {
       toast.error("Error fetching employees ❌");
@@ -31,7 +31,7 @@ export default function Employees() {
 
   const handleDelete = async (id) => {
     try {
-      await API.delete(`/employees/${id}`);
+      await API.delete(`/api/employees/${id}`); // FIXED
       toast.success("Employee Deleted 🗑️");
       fetchEmployees();
     } catch (err) {
@@ -62,7 +62,7 @@ export default function Employees() {
         Employees
       </h1>
 
-      {/* Header Actions */}
+      {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <input
           type="text"
@@ -180,148 +180,119 @@ export default function Employees() {
         </div>
       )}
 
-      {/* Drawer Panel */}
-{selectedEmployee && (
-  <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-end z-50">
-    <div className="w-[420px] bg-white h-full shadow-2xl p-6 overflow-y-auto">
+      {/* Drawer */}
+      {selectedEmployee && (
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-end z-50">
+          <div className="w-[420px] bg-white h-full shadow-2xl p-6 overflow-y-auto">
 
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold">
-          Employee Profile
-        </h2>
-        <button
-          onClick={() => setSelectedEmployee(null)}
-          className="text-gray-500 text-lg"
-        >
-          ✕
-        </button>
-      </div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-semibold">
+                Employee Profile
+              </h2>
+              <button
+                onClick={() => setSelectedEmployee(null)}
+                className="text-gray-500 text-lg"
+              >
+                ✕
+              </button>
+            </div>
 
-      {/* Basic Info */}
-      <div className="space-y-4 border-b pb-6">
+            <div className="space-y-4 border-b pb-6">
 
-        <div>
-          <label className="text-sm text-gray-500">Name</label>
-          <input
-            type="text"
-            value={selectedEmployee.name}
-            onChange={(e) =>
-              setSelectedEmployee({
-                ...selectedEmployee,
-                name: e.target.value,
-              })
-            }
-            className="w-full border rounded-lg px-3 py-2 mt-1"
-          />
-        </div>
+              <div>
+                <label className="text-sm text-gray-500">Name</label>
+                <input
+                  type="text"
+                  value={selectedEmployee.name}
+                  onChange={(e) =>
+                    setSelectedEmployee({
+                      ...selectedEmployee,
+                      name: e.target.value,
+                    })
+                  }
+                  className="w-full border rounded-lg px-3 py-2 mt-1"
+                />
+              </div>
 
-        <div>
-          <label className="text-sm text-gray-500">
-            Department
-          </label>
-          <input
-            type="text"
-            value={selectedEmployee.department}
-            onChange={(e) =>
-              setSelectedEmployee({
-                ...selectedEmployee,
-                department: e.target.value,
-              })
-            }
-            className="w-full border rounded-lg px-3 py-2 mt-1"
-          />
-        </div>
+              <div>
+                <label className="text-sm text-gray-500">
+                  Department
+                </label>
+                <input
+                  type="text"
+                  value={selectedEmployee.department}
+                  onChange={(e) =>
+                    setSelectedEmployee({
+                      ...selectedEmployee,
+                      department: e.target.value,
+                    })
+                  }
+                  className="w-full border rounded-lg px-3 py-2 mt-1"
+                />
+              </div>
 
-        <div>
-          <label className="text-sm text-gray-500">Salary</label>
-          <input
-            type="number"
-            value={selectedEmployee.salary}
-            onChange={(e) =>
-              setSelectedEmployee({
-                ...selectedEmployee,
-                salary: Number(e.target.value),
-              })
-            }
-            className="w-full border rounded-lg px-3 py-2 mt-1"
-          />
-        </div>
+              <div>
+                <label className="text-sm text-gray-500">Salary</label>
+                <input
+                  type="number"
+                  value={selectedEmployee.salary}
+                  onChange={(e) =>
+                    setSelectedEmployee({
+                      ...selectedEmployee,
+                      salary: Number(e.target.value),
+                    })
+                  }
+                  className="w-full border rounded-lg px-3 py-2 mt-1"
+                />
+              </div>
 
-        {/* Role Badge */}
-        <div>
-          <label className="text-sm text-gray-500">Role</label>
-          <div className="mt-2">
-            <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${
-                selectedEmployee.role === "admin"
-                  ? "bg-green-100 text-green-700"
-                  : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              {selectedEmployee.role || "Employee"}
-            </span>
+              <div>
+                <label className="text-sm text-gray-500">Role</label>
+                <div className="mt-2">
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      selectedEmployee.role === "admin"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-gray-200 text-gray-700"
+                    }`}
+                  >
+                    {selectedEmployee.role || "Employee"}
+                  </span>
+                </div>
+              </div>
+
+              {role === "admin" && (
+                <label className="flex items-center gap-2 mt-3">
+                  <input
+                    type="checkbox"
+                    checked={selectedEmployee.departmentManager}
+                    onChange={(e) =>
+                      setSelectedEmployee({
+                        ...selectedEmployee,
+                        departmentManager: e.target.checked,
+                      })
+                    }
+                  />
+                  Department Manager
+                </label>
+              )}
+            </div>
+
+            <div className="mt-6">
+              <h3 className="text-md font-semibold mb-3">
+                Activity Logs
+              </h3>
+
+              <div className="space-y-2 text-sm text-gray-600">
+                <div>Profile updated • 2 days ago</div>
+                <div>Salary modified • 5 days ago</div>
+                <div>Created account • 1 month ago</div>
+              </div>
+            </div>
+
           </div>
         </div>
-
-        {/* Save Button */}
-{role === "admin" && (
-  <label className="flex items-center gap-2 mt-3">
-    <input
-      type="checkbox"
-      checked={selectedEmployee.departmentManager}
-      onChange={(e) =>
-        setSelectedEmployee({
-          ...selectedEmployee,
-          departmentManager: e.target.checked,
-        })
-      }
-    />
-    Department Manager
-  </label>
-)}
-      </div>
-
-      {/* Leave History Section */}
-      <div className="mt-6 border-b pb-6">
-        <h3 className="text-md font-semibold mb-3">
-          Leave History
-        </h3>
-
-        <div className="space-y-2 text-sm text-gray-600">
-          <div className="flex justify-between">
-            <span>Annual Leave</span>
-            <span>Approved</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Sick Leave</span>
-            <span>Pending</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Activity Logs Section */}
-      <div className="mt-6">
-        <h3 className="text-md font-semibold mb-3">
-          Activity Logs
-        </h3>
-
-        <div className="space-y-2 text-sm text-gray-600">
-          <div>
-            Profile updated • 2 days ago
-          </div>
-          <div>
-            Salary modified • 5 days ago
-          </div>
-          <div>
-            Created account • 1 month ago
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-)}
+      )}
     </div>
   );
 }
