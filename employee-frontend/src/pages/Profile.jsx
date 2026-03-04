@@ -15,7 +15,7 @@ export default function Profile() {
   const fetchProfile = async () => {
     try {
       setLoading(true);
-      const res = await API.get("/auth/me");
+      const res = await API.get("/api/auth/me");
       setUser(res.data);
     } catch (err) {
       toast.error("Error loading profile ❌");
