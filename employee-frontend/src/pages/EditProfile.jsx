@@ -12,7 +12,7 @@ export default function EditProfile() {
   }, []);
 
   const fetchUser = async () => {
-    const res = await API.get("/auth/me");
+    const res = await API.get("/api/auth/me");
     setUser(res.data);
   };
 
